@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vue原生实现</title>
+  </head>
+  <body>
+    <script>
+      var vm = new Vue({
+        data() {
+          return {
+            name: "shrimpss",
+            age: 42,
+          };
+        },
+      });
+
+      function Vue(options) {
+        var _data = options.data(),
+          _this = this;
+
+        // Object 原生内置方法实现响应式代理
+        for (var key in _data) {
+          this.__defineGetter__(key, function () {
+            console.log("__defineGetter__: " + key);
+            return _data[key];
+          });
+
+          this.__defineSetter__(key, function (newValue) {
+            console.log("__defineSetter__: " + key);
+            _data[key] = newValue;
+          });
+        }
+
+        // ES5 使用立即执行函数实现独立作用域
+        // for (var k in _data) {
+        //   (function (k) {
+        //     Object.defineProperty(_this, k, {
+        //       get() {
+        //         console.log("GET响应式捕获: " + k);
+        //         return _data[k];
+        //       },
+        //       set(newValue) {
+        //         console.log("SET响应式捕获: " + k);
+        //         _data[k] = newValue;
+        //       },
+        //     });
+        //   })(k);
+        // }
+
+        // ES6+ 使用let实现
+        // for (let k in _data) {
+        //   Object.defineProperty(_this, k, {
+        //     get() {
+        //       console.log("GET: " + k);
+        //       return _data[k];
+        //     },
+        //     set(newValue) {
+        //       console.log("SET: " + k);
+        //       _data[k] = newValue;
+        //     },
+        //   });
+        // }
+      }
+      //   console.log(vm.name);
+      //   vm.age = 22;
+      //   console.log(vm.age);
+      console.log(vm);
+      //   console.log(Object.prototype.__lookupGetter__(vm));
+
+      // 使用原生的 __lookupGetter__ 与 __lookupSetter__ 获取指定属性的get与set
+      console.log(vm.__lookupGetter__("name"));
+      console.log(vm.__lookupSetter__("name"));
+
+      console.log(Object.getOwnPropertyDescriptor(vm, "name").get);
+      console.log(Object.getOwnPropertyDescriptors(vm));
+    </script>
+  </body>
+</html>

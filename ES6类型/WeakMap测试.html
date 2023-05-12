@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>WeakMap测试</title>
+	</head>
+
+	<body>
+		<button class="btn1">WeepMap引用1</button>
+		<button class="btn2">WeepMap引用2</button>
+		<script>
+			// 元素
+			let wbtn1 = document.querySelector('.btn1');
+			let wbtn2 = document.querySelector('.btn2');
+			// 引用值
+			function fun1() {
+				console.info('fun1');
+			}
+			function fun2() {
+				console.info('fun2');
+			}
+			let oBtnMap = new WeakMap();
+
+			// 绑定
+			// ps: 当对象不再被引用时，会将挂载的数据被一并回收掉
+			oBtnMap.set(wbtn1, fun1);
+			oBtnMap.set(wbtn2, fun2);
+			// 标记一次
+			wbtn1.addEventListener('click', oBtnMap.get(wbtn1), false);
+			wbtn2.addEventListener('click', oBtnMap.get(wbtn2), false);
+
+			// fun1();
+
+			// 取消标记，手动进行垃圾回收
+			wbtn1.remove();
+			wbtn2.remove();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<!-- debounce -->
+	<!-- <body>
+    <button id="debounce">Click ME ！</button>
+    <button id="cancelDebounce">Cancel</button>
+
+    <script>
+        const debounceElement = document.getElementById('debounce');
+        const cancelDebounceElement = document.getElementById('cancelDebounce');
+
+        const handleClick = function (e) {
+            console.log('点击了一次');
+        };
+
+        // debounceElement.onclick = debounce(handleClick, 500, true); // 立即执行测试
+        // const debounceClick = debounce(handleClick, 3000, false);
+        // debounceElement.onclick = debounceClick(); // cancel 测试
+        // cancelDebounceElement.onclick = () => {
+        // 	console.info('Cancel Successfully!');
+        // 	debounceClick.cancel();
+        // };
+
+        const debounceClick = debounce(handleClick, 300, false);
+        // 异步回调模拟
+        const debounceCallBack = function (...args) {
+            debounceClick.apply(this, args).then((res) => {
+                console.log(res);
+            });
+        };
+        debounceElement.onclick = debounceCallBack; // Promise 测试
+        cancelDebounceElement.onclick = () => {
+            console.info('Cancel Successfully!');
+            debounceClick.cancel();
+        };
+
+        function debounce(fn, delay, immediate = false) {
+            let timer = null;
+            let isInvoke = false;
+
+            function _debounce(...args) {
+                return new Promise((resolve, reject) => {
+                    if (timer) clearTimeout(timer);
+
+                    if (immediate && !isInvoke) {
+                        try {
+                            const result = fn.apply(this, arguments);
+                            isInvoke = true;
+                            resolve(result);
+                        } catch (err) {
+                            reject(err);
+                        }
+                    } else {
+                        timer = setTimeout(() => {
+                            try {
+                                const reult = fn.apply(this, arguments);
+                                isInvoke = false;
+                                resolve(reult);
+                            } catch (error) {
+                                reject(error);
+                            }
+                        }, delay);
+                    }
+                });
+            }
+
+            _debounce.cancel = function () {
+                clearTimeout(timer);
+                timer = null;
+            };
+
+            return _debounce;
+        }
+
+    </script>
+</body> 
+-->
+
+	<!-- throttle -->
+	<body>
+		<h1>Throttle</h1>
+	</body>
+
+	<script>
+		const handleMove = (e) => {
+			console.count('监听鼠标移动事件');
+		};
+		document.onmousemove = throttle(handleMove, 2000, true);
+
+		function throttle(fn, interval, loading = false, trailing = false) {
+			let nowTime;
+			let lastTime = 0;
+			let timer = null;
+
+			function _throttle(...args) {
+				nowTime = new Date().getTime();
+				// 首次节流
+				if (!loading && lastTime === 0) {
+					lastTime = nowTime;
+				}
+
+				if (timer) {
+					clearTimeout(timer);
+					timer = null;
+				}
+
+				if (nowTime - lastTime > interval) {
+					fn.apply(this, args);
+					lastTime = nowTime;
+					return;
+				}
+
+				if (trailing && !timer) {
+					timer = setTimeout(() => {
+						fn.apply(this, args);
+						timer = null;
+						lastTime = 0;
+					}, interval - (nowTimer - lastTime));
+				}
+			}
+			return _throttle;
+		}
+	</script>
+</html>

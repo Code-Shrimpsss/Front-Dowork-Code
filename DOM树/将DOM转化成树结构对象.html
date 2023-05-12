@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>将DOM转化成树结构对象</title>
+	</head>
+	<body>
+		<div class="main">
+			<span></span>
+			<ul>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script>
+			let dom = document.querySelector('.main')
+
+			// 将DOM转化成树结构对象 ----------------
+			function domTree(dom) {
+				const obj = {}
+				obj.tag = dom.tagName
+				obj.children = []
+				dom.childNodes.forEach((child) => {
+					if (child.nodeName == '#text' || child.nodeName == '#comment') return
+					obj.children.push(domTree(child))
+				})
+				return obj
+			}
+			const trees = domTree(dom)
+			console.log(trees)
+
+			console.log('\n ')
+
+			// 将树结构对象转化成DOM ----------------
+			function _render(vnode) {
+				if (typeof vnode === 'number') vnode = String(vnode)
+				if (typeof vnode === 'string') return document.createTextNode(vnode)
+				const dom = document.createElement(vnode.tag)
+				if (vnode.attrs) {
+					Object.keys(vnode.attrs).forEach((key) => {
+						const value = vnode.attrs[key]
+						dom.setAttribute(key, value)
+					})
+				}
+
+				vnode.children.forEach((child) => dom.appendChild(_render(child)))
+				return dom
+			}
+			console.log(_render(trees))
+		</script>
+	</body>
+</html>

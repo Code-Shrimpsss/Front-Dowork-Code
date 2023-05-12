@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES3立即执行函数插件</title>
+    <style>
+      #my-tab {
+        width: 500px;
+        height: 500px;
+        border: 2px solid;
+        margin: 50px auto;
+      }
+      .tab-wrapper {
+        width: 100%;
+        height: 50px;
+        border-bottom: 2px solid;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 50px;
+      }
+      .tab-item {
+        float: left;
+        width: 33.33%;
+      }
+      .tab-item.current {
+        background: #000;
+        color: white;
+      }
+      .page-wrapper {
+        position: relative;
+        height: 450px;
+      }
+      .page-item {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 450px;
+        line-height: 450px;
+        text-align: center;
+      }
+      .page-item.current {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 使用 ES3 方式创建选项卡插件 -->
+    <div
+      id="my-tab"
+      data='[{ "tab":"主页","page": "主页"}, { "tab":"中心","page": "中心"},{ "tab":"个人","page": "个人"}]'
+    ></div>
+    <script src="./js/utils.js"></script>
+    <script src="./js/templete.js"></script>
+    <script src="./js/myTab.js"></script>
+    <script>
+      new MyTab("#my-tab").init();
+    </script>
+  </body>
+</html>

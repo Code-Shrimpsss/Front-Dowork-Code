@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<button id="btn">点击打印</button>
+		<script>
+			var Btn = document.getElementById("btn");
+			// 事件处理函数内部的this总是指向被绑定的DOM元素
+			Btn.addEventListener(
+			  "click",
+			  function () {
+			    console.log(this);
+			  },
+			  false
+			);
+
+			(function (doc) {
+			  var Btn = doc.getElementById("btn");
+			  function Plus(a, b) {
+			    this.a = a;
+			    this.b = b;
+			    //   this.init();
+			  }
+			  console.trace(Plus())
+
+			  Plus.prototype.init() = function () {
+			    this.bindEvent();
+			  };
+			  Plus.prototype.bindEvent() = function () {
+			    Btn.addEventListener('click', this.handleBtnClick(), false);
+			  };
+
+			  Plus.prototype.handleBtnClick = function () {
+			    console.log(this);
+			  }
+
+			  window.Plus = Plus;
+			})(document);
+		</script>
+		<script src="./this指向.js"></script>
+	</body>
+</html>
