@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<ul></ul>
+		<script>
+			// 1. 优化操作 DOM 的频率
+			// 优化前 - 109831ms  Total
+			// const list = document.querySelector('ul');
+
+			// for (let i = 0; i < 1000; i++) {
+			// 	const li = document.createElement('li');
+			// 	li.textContent = `Item ${i}`;
+			// 	list.appendChild(li);
+			// }
+
+			// 1.1 DocuemntFragment - 优化后 - 38875 ms  Total
+			// const list = document.querySelector('ul');
+			// const frag = document.createDocumentFragment();
+
+			// for (let i = 0; i < 1000; i++) {
+			// 	const li = document.createDocumentFragment('li');
+			// 	li.textContent = `Item ${i}`;
+			// 	frag.appendChild(li);
+			// }
+
+			// list.appendChild(frag);
+
+			// 1.2 DOM缓存
+			// 先将所有li元素创建好,存储在数组中,最后一次性添加到ul中。这样只需要一次重绘。
+			// const list = document.querySelector('ul');
+			// const lis = [];
+			// for (let i = 0; i < 1000; i++) {
+			// 	const li = document.createElement('li');
+			// 	li.textContent = `Item ${i}`;
+			// 	lis.push(li);
+			// }
+			// list.append(...lis);
+
+			// 2. 缓存 DOM 元素的引用
+			// 未优化
+			// document.querySelector('#myButton').addEventListener('click', function () {
+			// 	document.querySelector('#myDiv').innerHTML = 'Button clicked';
+			// });
+
+			// // 优化后
+			// const myButton = document.querySelector('#myButton');
+			// const myDiv = document.querySelector('#myDiv');
+
+			// myButton.addEventListener('click', function () {
+			// 	myDiv.innerHTML = 'Button clicked';
+			// });
+
+			// 3. 使用事件委托
+			// 未优化
+			const listItems = document.querySelectorAll('li');
+
+			for (let i = 0; i < listItems.length; i++) {
+				listItems[i].addEventListener('click', function () {
+					console.log(`Item ${i} clicked`);
+				});
+			}
+
+			// 优化后
+			const list = document.querySelector('ul');
+
+			list.addEventListener('click', function (e) {
+				if (e.target.tagName === 'LI') {
+					console.log(`Item ${e.target.textContent} clicked`);
+				}
+			});
+
+			// 4. 使用 classList 代替 className
+
+			// 未优化
+			const myDiv = document.querySelector('#myDiv');
+			myDiv.className = 'foo';
+
+			// 优化后
+			const myDiv = document.querySelector('#myDiv');
+			myDiv.classList.add('foo');
+
+			// 5. 避免多次修改样式
+			// 未优化
+			const myDiv = document.querySelector('#myDiv');
+
+			myDiv.style.backgroundColor = 'red';
+			myDiv.style.color = 'white';
+			myDiv.style.fontSize = '20px';
+
+			// 优化后
+			// const myDiv = document.querySelector('#myDiv');
+			// myDiv.style.cssText = 'background-color: red; color: white; font-size: 20px;';
+		</script>
+	</body>
+</html>

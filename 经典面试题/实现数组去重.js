@@ -1,6 +1,8 @@
 // 方法1: Set 去重
 function defuplication(arr) {
 	return [...new Set(arr)];
+	// or
+	// return Array.from(new Set(arr));
 }
 
 // 方法2: Map记录
@@ -20,9 +22,9 @@ function defuplication(arr) {
 	return newArr;
 }
 
-// 方法3:
+// 方法3: filter()
 function defuplication(arr) {
-	return Array.from(new Set(arr));
+	return arr.filter((item, index, array) => array.indexOf(item) === index);
 }
 
 let arr = [3, 1, 2, 7, 3, 4, 5, 5, 4, 7];

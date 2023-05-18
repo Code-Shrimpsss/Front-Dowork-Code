@@ -11,13 +11,13 @@ function MyNew(fn, ...args) {
 }
 
 // 平替
-// function MyNew2(fn, ...args) {
-// 	var obj = Object.assign(fn.prototype);
-// 	fn.call(obj, ...args);
+function _new(TargetClass, ...args) {
+	const obj = Object.create(TargetClass.prototype);
+	const ret = TargetClass.apply(obj, args);
+	return typeof ret === 'object' ? ret : obj;
+}
 
-// 	return obj;
-// 	// 这种方法是利用构造函数建立连接的，有点本末倒置
-// }
+// ------------------------- Use ---------------------------------------
 
 class FF {
 	constructor(params) {

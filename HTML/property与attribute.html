@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- 在 HTML 中，attribute 是指在 HTML 标签属性，property 是指DOM对象属性。 -->
+		<div id="myDiv" data-value="123">This is a box</div>
+
+		<!-- HTML标签属性主要用于在 HTML 文档中为元素提附加信息。 -->
+		<input type="text" placeholder="Username" id="username" />
+
+		<script>
+			const myDiv = document.getElementById('myDiv');
+			console.log(myDiv.getAttribute('data-value')); // 123
+			console.log(myDiv.getAttribute('class')); // undefined
+
+			myDiv.setAttribute('class', 'newDivClass');
+			console.log(myDiv.getAttribute('class')); // newDivClass
+
+			myDiv.className = 'new-box';
+			myDiv.innerHTML = 'This is a new box';
+
+			console.log(myDiv.getAttribute('class')); // new-box
+
+			// DOM 即文档对象模型（Document Object Model），是一个编程接口，允许我们使用 JavaScript 操作 HTML 文档的结构、样式和内容。
+			const element = document.getElementById('username');
+			console.log(element.tagName); // 输出元素的标签名称
+			element.disabled = true; // 将输入框设置为禁用状态
+		</script>
+	</body>
+</html>

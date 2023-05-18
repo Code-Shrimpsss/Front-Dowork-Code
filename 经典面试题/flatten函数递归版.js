@@ -19,20 +19,20 @@
 // };
 
 // 闭包递归版
-// function wrap() {
-// 	let result = [];
+function wrap() {
+	let result = [];
 
-// 	return function _flatten(array) {
-// 		for (const iter of array) {
-// 			if (iter.constructor === Array) {
-// 				result.concat(_flatten(iter));
-// 			} else {
-// 				result.push(iter);
-// 			}
-// 		}
-// 		return result;
-// 	};
-// }
+	return function _flatten(array) {
+		for (const iter of array) {
+			if (iter.constructor === Array) {
+				result.concat(_flatten(iter));
+			} else {
+				result.push(iter);
+			}
+		}
+		return result;
+	};
+}
 
 const MOCK_ARRAY = [1, 2, [3, 4], 5, [6, [7, 8, [9, 10]]]];
 

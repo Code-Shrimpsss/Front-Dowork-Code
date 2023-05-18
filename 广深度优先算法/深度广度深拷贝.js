@@ -17,7 +17,7 @@ const dfsDeepClone = function (origin) {
 };
 
 // 广度
-const wfs = function (origin) {
+const wfsDeepClone = function (origin) {
 	if (origin == null) return origin;
 	let target = Array.isArray(origin) ? [] : {};
 	let queue = [origin];
@@ -28,7 +28,7 @@ const wfs = function (origin) {
 		if (typeof curr === 'object') {
 			for (const key in origin) {
 				if (typeof curr[key] === 'object') {
-					queue.push(curr[key]); // 入队，延后遍历
+					queue.push(wfsDeepClone(curr[key])); // 入队，延后遍历
 				} else {
 					queue[key] = curr[key]; // 直接拷贝
 				}
