@@ -7,15 +7,15 @@
 
 const eObj = {};
 const isObj = {
-    a: 1,
-    b: {
-        c: 2,
-        d: {
-            name: 'shtimpsss'
-        }
-    },
-    arr: [11, 22, 33]
-}
+	a: 1,
+	b: {
+		c: 2,
+		d: {
+			name: 'shtimpsss',
+		},
+	},
+	arr: [11, 22, 33],
+};
 
 const s = Object.seal(eObj);
 console.log(s);
@@ -24,4 +24,3 @@ console.log(Object.isExtensible(s));
 console.log(Object.isFrozen(s));
 
 // Object.
-
