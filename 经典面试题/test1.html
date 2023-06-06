@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.top {
+				width: 100px;
+				height: 20px;
+				background-image: linear-gradient(90deg, pink, skyblue 100%);
+			}
+		</style>
+	</head>
+
+	<div class="content">
+		<h1 class="text"></h1>
+
+		<div class="top">
+			<ul>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+
+	<body>
+		<script>
+			const topUl = document.querySelector('.top ul');
+			const text = document.querySelector('.text');
+
+			let TextArr = [
+				{
+					text: 'test1',
+					arr: 'test1_arr',
+				},
+				{
+					text: 'test2',
+					arr: 'test3_arr',
+				},
+				{
+					text: 'test3',
+					arr: 'test3_arr',
+				},
+			];
+
+			topUl.addEventListener('click', (e) => {
+				const { tagName, dataset } = e.target;
+				console.log(' e.target', e.target);
+				if (tagName !== 'LI') return;
+
+				console.log(dataset);
+			});
+
+			function setTextHandler(arr) {
+				let str = '';
+				arr.forEach((item) => {
+					const { text, arr } = item;
+					str += `  <p>${text}</p><p>${arr}</p>  `;
+				});
+				text.innerHTML = str;
+			}
+
+			setTextHandler(TextArr);
+
+			// const tabList = document.querySelector('.tab-list');
+			// const tabs = Array.from(tabList.querySelectorAll('li')).map(
+			// 	(tab) => ({
+			// 		/* ... */
+			// 	}),
+			// );
+			// const content = document.querySelector('.content');
+
+			// tabList.addEventListener('click', (e) => {
+			// 	const index = tabs.findIndex(
+			// 		(tab) => tab.text === e.target.textContent,
+			// 	);
+			// 	toggleActiveClass(index);
+			// 	showContent(index);
+			// });
+
+			// function showContent(index) {
+			// 	/* ... */
+			// }
+			// function toggleActiveClass(index) {
+			// 	/* ... */
+			// }
+		</script>
+	</body>
+</html>

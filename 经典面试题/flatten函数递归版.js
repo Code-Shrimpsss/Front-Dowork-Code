@@ -36,8 +36,9 @@ function wrap() {
 
 const MOCK_ARRAY = [1, 2, [3, 4], 5, [6, [7, 8, [9, 10]]]];
 
+console.time('one');
 console.log(wrap()(MOCK_ARRAY));
-
+console.timeEnd('one');
 // 第一个函数是常规的递归实现,在递归调用时需要将返回值赋值给 result,否则结果会丢失。
 // 第二个函数使用了闭包,内部函数 _flatten 可以访问外部函数 wrap 的变量 result。在递归调用时,不需要将返回值赋值给 result,因为 _flatten 直接操作的是同一个 result。
 // 也就是说,第二个函数通过闭包的方式“记住了”递归调用之间的 result,而第一个函数在每次递归调用之间,需要手动传递 result。

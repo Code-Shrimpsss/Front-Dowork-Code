@@ -1,0 +1,33 @@
+.content {
+	border: 2px solid pink;
+	/* width: 300px; */
+
+	display: grid;
+	/* grid-template-columns: 100px 100px 100px; */
+
+	/* fs: grid 剩余空间 */
+	grid-template-columns: 1fr 2fr 1fr;
+
+	/* 行列间距 */
+	row-gap: 24px;
+	column-gap: 24px;
+
+	/* 排列 */
+	align-content: end;
+	justify-content: space-between;
+
+	/* 指定区域 */
+	grid-template-areas:
+		'header header header'
+		'sidebar sidebar sidebar'
+		'footer footer footer';
+}
+
+.content div {
+	padding: 10px;
+	background-color: skyblue;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	font-size: 2rem;
+}
