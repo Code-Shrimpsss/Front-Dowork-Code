@@ -18,3 +18,13 @@ bar().then((result) => {});
 
 // 优点： 简化promise异步写法，捕获异步错误更简单
 // 限制： 需要等到async函数执行完并返回promise,才会执行then回调。不能跨await调用另一个async函数。会产生死锁。await会暂停async函数的执行,并等待promise的完成。这意味着若await的promise一直未完成,会导致事件循环被阻塞。
+
+async function boo() {}
+
+function boo() {
+	return new Promise(function (resolve, reject) {
+		resolve();
+	});
+}
+
+boo.then(() => {});
